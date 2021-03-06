@@ -1,4 +1,4 @@
-module github.com/honwen/aliyun-ddns-cli
+module github.com/LollipopKit/aliyun-ddns-cli
 
 go 1.15
 
