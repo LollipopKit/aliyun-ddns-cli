@@ -1,16 +1,21 @@
-# Source
-|Host|Url|
-|:-|:-|
-|Github|https://github.com/honwen/aliyun-ddns-cli|
-|Docker|https://hub.docker.com/r/chenhw2/aliyun-ddns-cli|
+# Intro
+According to the [origin version](https://github.com/honwen/aliyun-ddns-cli), this version support set multiple domains and automatic binaries releasing([Release](https://github.com/LollipopKit/aliyun-ddns-cli/releases)). 
 
-# Thanks
-Go Package: [alidns](https://github.com/denverdino/aliyungo)
 
 # Usage
-- 1.Get `AccessKeyID` and `AccessKeySecret` from your [Aliyun RAM Control Panel](https://ram.console.aliyun.com/manage/ak)
-- 2.Run this DDNS tool on your server.
-You can set multiple domains use param `--domain` with separator `/`. eg: `--domain ddns.a.com/ddns.b.com`
+- 1.Get `AccessKeyID` and `AccessKeySecret` from your [Aliyun RAM Control Panel](https://ram.console.aliyun.com/manage/ak).
+- 2.There are two example ways to run this DDNS tool on your server.   
+ 
+**Attention: You can set multiple domains use param `--domain` with separator `/`. eg: `--domain ddns.a.com/ddns.b.com`**
+#### Bash
+```bash
+# Automatic get IP from public API
+./aliyun-ddns-cli --id ${AccessKeyID} --secret ${AccessKeySecret} auto-update --domain ddns.example.win
+# or
+# Manually set IP addr
+./aliyun-ddns-cli --id ${AccessKeyID} --secret ${AccessKeySecret} update --domain ddns.example.win --ipaddr $(ifconfig pppoe-wan | sed -n '2{s/[^0-9]*://;s/[^0-9.].*//p}')
+```
+or
 #### Docker
 ```bash
 $ docker pull chenhw2/aliyun-ddns-cli
@@ -21,23 +26,11 @@ $ docker run -d \
     -e "REDO=600" \
     chenhw2/aliyun-ddns-cli
 ```
-or
-#### Bash
-```bash
-# Automatic get IP from public API
-aliddns --id ${AccessKeyID} --secret ${AccessKeySecret} \
-    auto-update --domain ddns.example.win
-# or
-# Manually set IP addr
-aliddns --id ${AccessKeyID} --secret ${AccessKeySecret} \
-    update --domain ddns.example.win \
-    --ipaddr $(ifconfig pppoe-wan | sed -n '2{s/[^0-9]*://;s/[^0-9.].*//p}')
-```
 
-# Screenshot (for Synology)
-![Synology](https://github.com/honwen/aliyun-ddns-cli/raw/master/example/Synology_Docker.png)
 
-# Help
+# Thanks
+Go Package: [alidns](https://github.com/denverdino/aliyungo)
+# Advanced Usage
 ```
 $ docker run --rm chenhw2/aliyun-ddns-cli -h
 NAME:
